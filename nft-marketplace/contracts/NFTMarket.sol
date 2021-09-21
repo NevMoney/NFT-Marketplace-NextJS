@@ -1,14 +1,15 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity 0.8.4;
 
-import @openzeppelin/contracts/utils/Counters.sol;
-import @openzeppelin/contracts/token/ERC721/ERC721.sol;
-import @openzeppelin/contracts/security/ReentrancyGuard.sol;
+import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "hardhat/console.sol";
 
 contract NFTMarket is ReentrancyGuard {
     using Counters for Counters.Counter;
     Counters.Counter private _itemIds;
-    Counter.Counter private _itemsSold;
+    Counters.Counter private _itemsSold;
 
     address payable owner;
     uint256 listingPrice = 0.025 ether;
@@ -25,9 +26,9 @@ contract NFTMarket is ReentrancyGuard {
 
     mapping(uint256 => MarketItem) private _idToMarketItem;
 
-    event ItemCreated(uint indexed itemId, address indexed nftContract, uint256 indexed tokenId, address seller, address tokenOwner, uint256 price, bool price);
+    event ItemCreated(uint indexed itemId, address indexed nftContract, uint256 indexed tokenId, address seller, address tokenOwner, uint256 price, bool sold);
 
-    constructor() public {
+    constructor() {
         owner = payable(msg.sender);
     }
  
@@ -42,7 +43,7 @@ contract NFTMarket is ReentrancyGuard {
         _itemIds.increment();
         uint256 itemId = _itemIds.current();
 
-        _itToMarketItem[itemId] = MarketItem(
+        _idToMarketItem[itemId] = MarketItem(
             itemId,
             nftContract,
             tokenId,
@@ -65,7 +66,7 @@ contract NFTMarket is ReentrancyGuard {
         _idToMarketItem[itemId].seller.transfer(msg.value);
 
         IERC721(nftContract).transferFrom(address(this), msg.sender, tokenId);
-        _idToMarketItem[itemId].tokenOwner = msg.sender;
+        _idToMarketItem[itemId].tokenOwner = payable(msg.sender);
         _idToMarketItem[itemId].sold = true;
 
         _itemsSold.increment();
@@ -74,7 +75,7 @@ contract NFTMarket is ReentrancyGuard {
 
     function getMarketItems() public view returns (MarketItem[] memory) {
         uint itemCount = _itemIds.current();
-        uint unsoldItemCount = _items.current() - _itemsSold.current();
+        uint unsoldItemCount = _itemIds.current() - _itemsSold.current();
         uint currentIndex = 0;
 
         MarketItem[] memory items = new MarketItem[](unsoldItemCount);
@@ -89,7 +90,7 @@ contract NFTMarket is ReentrancyGuard {
         return items;
     }
 
-    function getMyNFTs() public view returns (MarketItme[] memory) {
+    function getMyNFTs() public view returns (MarketItem[] memory) {
         uint totalItemCount = _itemIds.current();
         uint itemCount = 0;
         uint currentIndex = 0;

@@ -1,7 +1,9 @@
 require('@nomiclabs/hardhat-waffle')
 const fs = require('fs')
+// if using something like .secret, then we'd do the following
+// const privateKey = fs.readFileSync('.secret').toString()
 require('dotenv').config()
-
+const privateKey = process.env.PVT_KEY
 task('accounts', 'Prints the list of accounts', async (taskArgs, hre) => {
   const accounts = await hre.ethers.getSigners()
 
@@ -17,27 +19,27 @@ module.exports = {
     },
     mumbai: {
       url: `https://speedy-nodes-nyc.moralis.io/${process.env.PROJECT_ID}/polygon/mumbai`,
-      accounts: [],
+      accounts: [privateKey],
     },
     polygon: {
       url: `https://speedy-nodes-nyc.moralis.io/${process.env.PROJECT_ID}/polygon/mainnet`,
-      accounts: [],
+      accounts: [privateKey],
     },
     rinkeby: {
       url: `https://speedy-nodes-nyc.moralis.io/${process.env.PROJECT_ID}/eth/rinkeby`,
-      accounts: [],
+      accounts: [privateKey],
     },
     ethMainnet: {
       url: `https://speedy-nodes-nyc.moralis.io/${process.env.PROJECT_ID}/eth/mainnet`,
-      accounts: [],
+      accounts: [privateKey],
     },
     bscMainnet: {
       url: `https://speedy-nodes-nyc.moralis.io/${process.env.PROJECT_ID}/bsc/testnet`,
-      accounts: [],
+      accounts: [privateKey],
     },
     bscTestnet: {
       url: `https://speedy-nodes-nyc.moralis.io/${process.env.PROJECT_ID}/bsc/testnet`,
-      accounts: [],
+      accounts: [privateKey],
     },
   },
   solidity: {

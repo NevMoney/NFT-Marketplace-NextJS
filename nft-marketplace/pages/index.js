@@ -11,9 +11,11 @@ import Market from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json'
 export default function Home() {
   const [nfts, setNfts] = useState([])
   const [loadingState, setLoadingState] = useState('not-loaded')
+
   useEffect(() => {
     loadNFTs()
   }, [])
+
   async function loadNFTs() {
     const provider = new ethers.providers.JsonRpcProvider()
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
@@ -27,9 +29,7 @@ export default function Home() {
     const items = await Promise.all(
       data.map(async (i) => {
         const tokenUri = await tokenContract.tokenURI(i.tokenId)
-        console.log(tokenUri)
         const meta = await axios.get(tokenUri)
-        console.log(meta)
         let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
         let item = {
           price,
@@ -46,6 +46,7 @@ export default function Home() {
     setNfts(items)
     setLoadingState('loaded')
   }
+
   async function buyNft(nft) {
     const web3Modal = new Web3Modal()
     const connection = await web3Modal.connect()
@@ -64,8 +65,10 @@ export default function Home() {
     await transaction.wait()
     loadNFTs()
   }
+
   if (loadingState === 'loaded' && !nfts.length)
     return <h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>
+
   return (
     <div className="flex justify-center">
       <div className="px-4" style={{ maxWidth: '1600px' }}>
@@ -86,7 +89,7 @@ export default function Home() {
               </div>
               <div className="p-4 bg-black">
                 <p className="text-2xl mb-4 font-bold text-white">
-                  {nft.price} MATIC
+                  {nft.price} ETH
                 </p>
                 <button
                   className="w-full bg-pink-500 text-white font-bold py-2 px-12 rounded"

@@ -25,22 +25,6 @@ module.exports = {
       url: `https://speedy-nodes-nyc.moralis.io/${process.env.PROJECT_ID}/polygon/mainnet`,
       accounts: [privateKey],
     },
-    rinkeby: {
-      url: `https://speedy-nodes-nyc.moralis.io/${process.env.PROJECT_ID}/eth/rinkeby`,
-      accounts: [privateKey],
-    },
-    ethMainnet: {
-      url: `https://speedy-nodes-nyc.moralis.io/${process.env.PROJECT_ID}/eth/mainnet`,
-      accounts: [privateKey],
-    },
-    bscMainnet: {
-      url: `https://speedy-nodes-nyc.moralis.io/${process.env.PROJECT_ID}/bsc/testnet`,
-      accounts: [privateKey],
-    },
-    bscTestnet: {
-      url: `https://speedy-nodes-nyc.moralis.io/${process.env.PROJECT_ID}/bsc/testnet`,
-      accounts: [privateKey],
-    },
   },
   solidity: {
     version: '0.8.4',

@@ -17,13 +17,24 @@ export default function Home() {
   }, [])
 
   async function loadNFTs() {
-    const provider = new ethers.providers.JsonRpcProvider()
+    // for local deployment this is fine
+    // const provider = new ethers.providers.JsonRpcProvider()
+    // for network deployment use this (it was giving CORS error)
+    // const provider = new ethers.providers.JsonRpcProvider(
+    //   'https://rpc-mumbai.matic.today',
+    // )
+    // this seems to work well
+    const provider = new ethers.providers.JsonRpcBatchProvider(
+      `https://speedy-nodes-nyc.moralis.io/412ad88fbf5449d459ae44a5/polygon/mumbai`,
+    )
+    console.log('provider', provider)
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
     const marketContract = new ethers.Contract(
       nftmarketaddress,
       Market.abi,
       provider,
     )
+
     const data = await marketContract.getMarketItems()
 
     const items = await Promise.all(

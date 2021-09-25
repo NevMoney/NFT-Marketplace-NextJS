@@ -23,7 +23,7 @@ module.exports = {
       accounts: [privateKey],
     },
     polygon: {
-      url: `https://speedy-nodes-nyc.moralis.io/${process.env.PROJECT_ID}/polygon/mainnet`,
+      url: `https://speedy-nodes-nyc.moralis.io/${process.env.SPEEDY_NODE_ID}/polygon/mainnet`,
       accounts: [privateKey],
     },
   },

@@ -3,8 +3,9 @@ import { ethers } from 'ethers'
 import Web3Modal from 'web3modal'
 import axios from 'axios'
 
-import { nftmarketaddress } from '../config'
+import { nftaddress, nftmarketaddress } from '../config'
 import Market from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json'
+import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
 
 export default function myAssets() {
   const [nfts, setNfts] = useState([])
@@ -25,6 +26,7 @@ export default function myAssets() {
       Market.abi,
       signer,
     )
+    const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
 
     const data = await marketContract.getMyNFTs()
 
@@ -56,7 +58,7 @@ export default function myAssets() {
     <div className="flex justify-center">
       <div className="p-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
-          {nfts.map((nft) => (
+          {nfts.map((nft, i) => (
             <div key={i} className="border shadow rounded-xl overflow-hidden">
               <img src={nft.image} className="rounded" />
               <div className="p-4 bg-black">

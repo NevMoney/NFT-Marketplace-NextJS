@@ -1,2 +1,5 @@
-export const nftaddress = '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512'
-export const nftmarketaddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3'
+export const nftaddress = '0xa46F9904fe2BEFbBEE50B6abcE038Cc74428c87B'
+export const nftmarketaddress = '0x9166A3803E5659A14799b3075E59C88C2fD750E1'
+
+// Market deployed to: 0x9166A3803E5659A14799b3075E59C88C2fD750E1
+// NFT deployed to: 0xa46F9904fe2BEFbBEE50B6abcE038Cc74428c87B

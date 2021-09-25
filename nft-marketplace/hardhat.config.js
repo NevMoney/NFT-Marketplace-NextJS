@@ -18,7 +18,8 @@ module.exports = {
       chainId: 1337,
     },
     mumbai: {
-      url: `https://speedy-nodes-nyc.moralis.io/${process.env.PROJECT_ID}/polygon/mumbai`,
+      // url: `https://speedy-nodes-nyc.moralis.io/${process.env.PROJECT_ID}/polygon/mumbai`,
+      url: 'https://rpc-mumbai.maticvigil.com',
       accounts: [privateKey],
     },
     polygon: {
@@ -34,5 +35,11 @@ module.exports = {
         runs: 200,
       },
     },
+  },
+  paths: {
+    sources: './contracts',
+    tests: './test',
+    cache: './cache',
+    artifacts: './artifacts',
   },
 }

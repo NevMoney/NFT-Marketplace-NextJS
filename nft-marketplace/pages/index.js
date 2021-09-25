@@ -27,7 +27,7 @@ export default function Home() {
     const provider = new ethers.providers.JsonRpcBatchProvider(
       `https://speedy-nodes-nyc.moralis.io/412ad88fbf5449d459ae44a5/polygon/mumbai`,
     )
-    console.log('provider', provider)
+
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
     const marketContract = new ethers.Contract(
       nftmarketaddress,
@@ -100,7 +100,7 @@ export default function Home() {
               </div>
               <div className="p-4 bg-black">
                 <p className="text-2xl mb-4 font-bold text-white">
-                  {nft.price} ETH
+                  {nft.price} MATIC
                 </p>
                 <button
                   className="w-full bg-pink-500 text-white font-bold py-2 px-12 rounded"

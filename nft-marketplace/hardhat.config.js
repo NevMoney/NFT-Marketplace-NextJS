@@ -23,7 +23,7 @@ module.exports = {
       accounts: [privateKey],
     },
     polygon: {
-      url: `https://speedy-nodes-nyc.moralis.io/${process.env.SPEEDY_NODE_ID}/polygon/mainnet`,
+      url: `https://rpc-mainnet.matic.network`,
       accounts: [privateKey],
     },
   },
